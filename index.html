@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NovaMind AI</title>
+<style>
+body{background:#0f172a;color:white;font-family:sans-serif;text-align:center}
+input{width:80%;padding:10px;border-radius:8px;border:none}
+button{padding:10px 20px;border:none;border-radius:8px;background:#7c3aed;color:white}
+#chat{margin-top:20px}
+</style>
+</head>
+<body>
+
+<h2>NovaMind AI</h2>
+
+<input id="msg" placeholder="Type your message">
+<br><br>
+<button onclick="ask()">Send</button>
+
+<div id="chat"></div>
+
+<script>
+async function ask(){
+let message=document.getElementById("msg").value;
+document.getElementById("chat").innerHTML="Thinking...";
+
+let response=await fetch("https://openrouter.ai/api/v1/chat/completions",{
+method:"POST",
+headers:{
+"Authorization":"Bearer YOUR_API_KEY",
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+"model":"deepseek/deepseek-chat",
+"messages":[{"role":"user","content":message}]
+})
+});
+
+let data=await response.json();
+document.getElementById("chat").innerHTML=data.choices[0].message.content;
+}
+</script>
+
+</body>
+</html>
