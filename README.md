@@ -1,2 +1,2 @@
-# novamind-ai
+# novamindi
 My own AI chatbot
